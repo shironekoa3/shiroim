@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Windows 清理桌面图标</title>
+      <link href="article/22/"/>
+      <url>article/22/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>文章转载自 <a href="https://blog.csdn.net/luoyayun361/article/details/79228390">https://blog.csdn.net/luoyayun361/article/details/79228390</a></p></blockquote><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Windows 系统磁盘中存放的图标会自动缓存，有时候替换一个新的图标过后，并不会立马看到新图标，这就是因为加载的还是前一个图标的缓存文件，这时候点击右键刷新时没用的，有个比较笨的办法是重启电脑，这样可以重新加载，但是比较麻烦，在网上找到一种比较简单的方式，将命令行做成一个脚本，只要双击脚本就能解决啦。还能解决桌面图标变白的问题。</p><h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>新建一个文本文档，然后将文件名改成 <code>.bat</code> 格式，如 <code>ClearIconCache.bat</code>，自动变成脚本文件，然后用记事本打开该文档，将以下所有内容拷贝到文档中保存并关闭，双击该文件即可完成自动清理。</p><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"><span class="comment">rem 关闭Windows外壳程序explorer</span></span><br><span class="line"><span class="built_in">taskkill</span> /f /im explorer.exe</span><br><span class="line"><span class="comment">rem 清理系统图标缓存数据库</span></span><br><span class="line"><span class="built_in">attrib</span> -h -s -r &quot;<span class="variable">%userprofile%</span>\AppData\Local\IconCache.db&quot;</span><br><span class="line"><span class="built_in">del</span> /f &quot;<span class="variable">%userprofile%</span>\AppData\Local\IconCache.db&quot;</span><br><span class="line"><span class="built_in">attrib</span> /s /d -h -s -r &quot;<span class="variable">%userprofile%</span>\AppData\Local\Microsoft\Windows\Explorer\*&quot;</span><br><span class="line"><span class="built_in">del</span> /f &quot;<span class="variable">%userprofile%</span>\AppData\Local\Microsoft\Windows\Explorer\thumbcache_32.db&quot;</span><br><span class="line"><span class="built_in">del</span> /f &quot;<span class="variable">%userprofile%</span>\AppData\Local\Microsoft\Windows\Explorer\thumbcache_96.db&quot;</span><br><span class="line"><span class="built_in">del</span> /f &quot;<span class="variable">%userprofile%</span>\AppData\Local\Microsoft\Windows\Explorer\thumbcache_102.db&quot;</span><br><span class="line"><span class="built_in">del</span> /f &quot;<span class="variable">%userprofile%</span>\AppData\Local\Microsoft\Windows\Explorer\thumbcache_256.db&quot;</span><br><span class="line"><span class="built_in">del</span> /f &quot;<span class="variable">%userprofile%</span>\AppData\Local\Microsoft\Windows\Explorer\thumbcache_1024.db&quot;</span><br><span class="line"><span class="built_in">del</span> /f &quot;<span class="variable">%userprofile%</span>\AppData\Local\Microsoft\Windows\Explorer\thumbcache_idx.db&quot;</span><br><span class="line"><span class="built_in">del</span> /f &quot;<span class="variable">%userprofile%</span>\AppData\Local\Microsoft\Windows\Explorer\thumbcache_sr.db&quot;</span><br><span class="line"><span class="comment">rem 清理 系统托盘记忆的图标</span></span><br><span class="line"><span class="built_in">echo</span> y|reg delete &quot;HKEY_CLASSES_ROOT\Local Settings\Software\Microsoft\Windows\CurrentVersion\TrayNotify&quot; /v IconStreams</span><br><span class="line"><span class="built_in">echo</span> y|reg delete &quot;HKEY_CLASSES_ROOT\Local Settings\Software\Microsoft\Windows\CurrentVersion\TrayNotify&quot; /v PastIconsStream</span><br><span class="line"><span class="comment">rem 重启Windows外壳程序explorer</span></span><br><span class="line"><span class="built_in">start</span> explorer</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 系统 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>C 语言学习笔记</title>
       <link href="article/21/"/>
       <url>article/21/</url>
