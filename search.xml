@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>如何访问外网</title>
+      <link href="article/24/"/>
+      <url>article/24/</url>
+      
+        <content type="html"><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>Google、YouTube 等网站无法访问，是因为大陆的运营商防火墙拦截掉了你的访问请求，也就是说只要是使用的大陆的运营商网络，都是无法访问这些网站的。解决方法其实也很简单，就是使用网络代理。</p><p><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/shironekoa3/static/images/posts/unproxy.png" alt="不使用代理"><br><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/shironekoa3/static/images/posts/proxy.png" alt="使用代理"></p><p>通过上面的图片可以知道，访问外网需要如下工具：</p><ol><li>能访问外网的服务器一台。</li><li>服务器安装相关程序转发客服端的流量。</li><li>客户端安装相关程序连接服务器。</li></ol><p>不过如果是一般用户，也没有必要自己去购买一台服务器来搭建相关程序。</p><p>因为运营商会检测你访问的服务器是否提供了这样的程序，一旦被检测出服务器上安装了相关程序，运营商也会将这个服务器的 IP 地址拉黑，这样就无法连接这个服务器了。</p><p>因而催生出了这样一个产业，平台老板会购买多台服务器专门用来做代理，用户可以购买套餐来使用平台的代理，这样就算一台服务器被拉黑，也会有其他的服务器可以使用，这样的平台就叫机场。</p><p>一般在机场购买套餐之后，机场会提供一个订阅链接，在客户端打开软件填入订阅链接，就会自动下载各个代理服务器的配置，选择一个代理服务器之后开启代理，就可以访问外网了。</p><h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><p>比较常用的有如下工具：</p><p><strong>Windows</strong>：<br>Clash for Windows: <a href="https://github.com/Fndroid/clash_for_windows_pkg/releases">https://github.com/Fndroid/clash_for_windows_pkg/releases</a><br>Netch: <a href="https://github.com/netchx/Netch/releases">https://github.com/netchx/Netch/releases</a><br>v2rayN: <a href="https://github.com/2dust/v2rayN/releases">https://github.com/2dust/v2rayN/releases</a></p><p><strong>安卓</strong>：<br>ClashForAndroid: <a href="https://github.com/Kr328/ClashForAndroid/releases">https://github.com/Kr328/ClashForAndroid/releases</a></p><h2 id="教程"><a href="#教程" class="headerlink" title="教程"></a>教程</h2><p>教程以 <code>Clash for Windows</code> 为例。</p><ol><li><p>下载安装 <code>Clash for Windows</code>。</p></li><li><p>打开软件进入 <code>Profiles</code> 选项卡，在文本框内粘贴机场的订阅链接，点击 <code>Download</code> 按钮下载配置文件。<br><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/shironekoa3/static/images/posts/cfw1.png" alt="Clash for Windows"></p></li><li><p>进入 <code>Proxies</code> 选项卡，选择一个节点。<br><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/shironekoa3/static/images/posts/cfw2.png" alt="Clash for Windows"></p></li><li><p>进入 <code>General</code> 选项卡，打开 <code>System Proxy</code> 选项，即可开启代理。<br><img src= "/img/loading.gif" data-lazy-src="https://cdn.jsdelivr.net/gh/shironekoa3/static/images/posts/cfw3.png" alt="Clash for Windows"></p></li><li><p>打开浏览器，访问 <a href="https://www.google.com/">https://www.google.com/</a> 检查是否能成功访问被封禁的网站。</p></li></ol><p>其他软件操作流程也基本类似，喜欢用什么就用什么。</p><p>[END]</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 教程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 外网 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>四级英语作文写作技巧</title>
       <link href="article/23/"/>
       <url>article/23/</url>
