@@ -1,0 +1,7 @@
+taskkill /f /t /im DeploymentAgent.exe
+taskkill /f /t /im StudentMain.exe
+
+move "C:\Program Files (x86)\CloudW\cloudWcnt\DeploymentAgent.exe" "C:\Program Files (x86)\CloudW\cloudWcnt\DeploymentAgentBak.exe"
+move "C:\Program Files (x86)\Mythware\极域电子教室软件 v4.0 2016 豪华版\StudentMain.exe" "C:\Program Files (x86)\Mythware\极域电子教室软件 v4.0 2016 豪华版\StudentMainBak.exe"
+
+pause
