@@ -1,4 +1,4 @@
-[shiroim.js](https://shironekoa3.github.io/doc) - Provide more flexible data visualization solutions
+[shiroim.js](https://shironekoa3.github.io/) - Provide more flexible data visualization solutions
 ==================================================
 
 我们的目标是：提供更友好的数据可视化（2D和3D）解决方案。
@@ -19,7 +19,7 @@
 
 贡献代码和参与讨论？
 --------------------------------------
-始终秉承着开源的初衷，任何有益的建议或设计都是被鼓励作为新的代码贡献进来的。加入我们前，请先阅读[接口文档API](https://shironekoa3.github.io/doc)了解基本情况。如果仍有疑惑，可以发送作者邮箱询问细节。
+始终秉承着开源的初衷，任何有益的建议或设计都是被鼓励作为新的代码贡献进来的。加入我们前，请先阅读[接口文档API](https://shironekoa3.github.io/)了解基本情况。如果仍有疑惑，可以发送作者邮箱询问细节。
 
 如何在本地搭建开发环境？
 --------------------------------------
@@ -27,7 +27,7 @@
 把代码Clone到本地：
 
 ```bash
-git clone https://github.com/shironekoa3/shironekoa3.github.io.git shiroim
+git clone https://github.com/shironekoa3/shiroim.git
 ```
 
 进入项目目录，安装打包文件：

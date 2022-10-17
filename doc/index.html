@@ -16,7 +16,7 @@
         }
         function toEdit() {
             var url = window.location.href.replace(/[^#]*(#\/){0,1}/, '');
-            window.location.href = 'https://shironekoa3.github.io/doc/apis/' + url + '.html';
+            window.location.href = 'https://shironekoa3.github.io/' + url + '.html';
         }
     </script>
 </head>
@@ -25,7 +25,7 @@
     <button onclick='toEdit()' id='edit-btn'>编辑文档</button>
     <div class="menu-frame" id='menu-frame'>
         <header>
-            <a href='https://github.com/shironekoa3/shironekoa3.github.io' target="_blank">shiroim.js</a> / doc
+            <a href='https://github.com/shironekoa3/shiroim' target="_blank">shiroim.js</a> / doc
         </header>
         <input type="text" placeholder="Type to filter" onkeyup='doSearch(this.value)'>
         <span>说明&amp;指南</span>
@@ -77,7 +77,7 @@
             <li onclick='loadpage("layout/tree")'>tree 树布局</li>
             <li onclick='loadpage("layout/pie")'>pie 饼布局</li>
         </ul>
-        <footer onclick='window.location.href="https://github.com/shironekoa3/shironekoa3.github.io"'>
+        <footer onclick='window.location.href="https://github.com/shironekoa3/shiroim"'>
             版本：1.4.0
         </footer>
     </div>
@@ -107,7 +107,7 @@
         '始终秉承着开源的初衷，任何有益的建议或设计都是被鼓励作为新的代码贡献进来的。',
         ' '
     ].join('\n'), "color:#d66eac"),
-        console.log("%cshiroim.js项目github地址：https://github.com/shironekoa3/shironekoa3.github.io （期待你的加入）", "color:#5292b2"));
+        console.log("%cshiroim.js项目github地址：https://github.com/shironekoa3/shiroim （期待你的加入）", "color:#5292b2"));
 
 </script>
 
