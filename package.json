@@ -1,0 +1,27 @@
+{
+  "name": "shiroim.js",
+  "version": "1.4.0",
+  "status": "本版本为开发中的未来版本",
+  "description": "Provide more flexible data visualization solutions!",
+  "scripts": {
+    "release": "node_modules/.bin/grunt release",
+    "server": "node_modules/.bin/grunt server",
+    "test": "npm install grunt-contrib-qunit && node_modules/.bin/grunt test",
+    "start": "npm install && npm run release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shironekoa3/shironekoa3.github.io.git"
+  },
+  "author": "shironekoa3",
+  "email": "shironekoa3@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-connect": "^2.0.0",
+    "grunt-contrib-jshint": "^2.0.0",
+    "grunt-contrib-uglify": "^4.0.0"
+  }
+}
