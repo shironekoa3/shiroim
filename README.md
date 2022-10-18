@@ -3,7 +3,7 @@
 
 我们的目标是：提供更友好的数据可视化（2D和3D）解决方案。
 
-<img align="right" height="100" src="https://shironekoa3.github.io/shiroim.png">
+<img align="right" height="100" src="https://shironekoa3.github.io/shiroim/shiroim.png">
 
 ****
 ### 作者: shironekoa3
