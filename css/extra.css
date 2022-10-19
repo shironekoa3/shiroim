@@ -1,3 +1,6 @@
 .avatar-img img:hover {
 	transform: none;
 }
+hr:before {
+	content: '' !important;
+}
