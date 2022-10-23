@@ -218,6 +218,17 @@
 <h2 id="RESTful-实现"><a href="#RESTful-实现" class="headerlink" title="RESTful 实现"></a>RESTful 实现</h2><p>HTTP 协议里面有四个表示操作方式的动词：GET、POST、PUT、DELETE。</p>
 <p>它们分别对应四种基本操作：GET 用来获取资源，POST 用来新建资源，PUT 用来更新资源，DELETE用来删除资源。</p>
 <p>REST 风格提倡 URL 地址使用统一的风格设计，从前到后各个单词使用斜杠分开，不使用问号键值对方式携带请求参数，而是将要发送给服务器的数据作为 URL 地址的一部分，以保证整体风格的一致性。</p>
+<a class="btn-beautify " href="javascript:void(0)" 
+  title="点击隐藏/显示"><span>点击隐藏/显示</span></a>
+
+<script>
+const content = document.getElementById('article-container')
+content.getElementsByClassName('btn-beautify')[0].onclick = () => {
+    const table = content.getElementsByClassName('table-wrap')[0]
+    table.style.display = table.style.display === 'none' ? 'block' : 'none'
+}
+</script>
+
 <table>
 <thead>
 <tr>
