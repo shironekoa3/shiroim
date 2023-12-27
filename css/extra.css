@@ -1,0 +1,22 @@
+/* 4.8.5 版本封面 BUG */
+.post-bg,
+.article-sort-item-img div {
+	background-size: cover !important;
+	background-position: center !important;
+}
+
+
+/* 头像特效 */
+.avatar-img img:hover {
+	transform: none;
+}
+
+/* 文章列表样式 */
+#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap {
+	margin: 10px 0;
+	font-size: 100%;
+}
+
+#article-container.post-content ul > li {
+	list-style-type: unset;
+}

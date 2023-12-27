@@ -1,0 +1,256 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Java 读写文件的几种方式 | 向日葵</title><meta name="author" content="向日葵"><meta name="copyright" content="向日葵"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本篇文章转载自: https:&#x2F;&#x2F;www.cnblogs.com&#x2F;MyTiMo&#x2F;p&#x2F;10998525.html  Java 把不同来源和目标的数据都统一抽象为数据流 Java语言的输入输出功能是十分强大而灵活的。 在Java类库中，IO部分的内容是很庞大的，因为它涉及的领域很广泛：标准输入输出，文件的操作，网络上的数据流，字符串流，对象流，zip文件流等等。 这里介绍几种读写文件的方式。 IO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 读写文件的几种方式">
+<meta property="og:url" content="https://javac.me/article/16/index.html">
+<meta property="og:site_name" content="向日葵">
+<meta property="og:description" content="本篇文章转载自: https:&#x2F;&#x2F;www.cnblogs.com&#x2F;MyTiMo&#x2F;p&#x2F;10998525.html  Java 把不同来源和目标的数据都统一抽象为数据流 Java语言的输入输出功能是十分强大而灵活的。 在Java类库中，IO部分的内容是很庞大的，因为它涉及的领域很广泛：标准输入输出，文件的操作，网络上的数据流，字符串流，对象流，zip文件流等等。 这里介绍几种读写文件的方式。 IO">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://javac.me/images/global/gravatar.jpg">
+<meta property="article:published_time" content="2020-09-13T01:10:49.000Z">
+<meta property="article:modified_time" content="2020-09-13T01:10:49.000Z">
+<meta property="article:author" content="向日葵">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="IO">
+<meta property="article:tag" content="读写文件">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://javac.me/images/global/gravatar.jpg"><link rel="shortcut icon" href="/images/global/favicon.ico"><link rel="canonical" href="https://javac.me/article/16/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn1.tianli0.top/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn1.tianli0.top/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn1.tianli0.top/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-right"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn1.tianli0.top/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn1.tianli0.top/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java 读写文件的几种方式',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-09-13 09:10:49'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/extra.css"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/global/gravatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">29</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/command/"><i class="fa-fw fas fa-terminal"></i><span> 命令速查</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 文章分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img fixed" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="向日葵"><span class="site-name">向日葵</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/command/"><i class="fa-fw fas fa-terminal"></i><span> 命令速查</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 文章分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Java 读写文件的几种方式</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-09-13T01:10:49.000Z" title="发表于 2020-09-13 09:10:49">2020-09-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-09-13T01:10:49.000Z" title="更新于 2020-09-13 09:10:49">2020-09-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">905</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span></div></div></div><article class="post-content" id="article-container"><blockquote>
+<p>本篇文章转载自: <a target="_blank" rel="noopener" href="https://www.cnblogs.com/MyTiMo/p/10998525.html">https://www.cnblogs.com/MyTiMo/p/10998525.html</a></p>
+</blockquote>
+<p><strong>Java 把不同来源和目标的数据都统一抽象为数据流</strong></p>
+<p>Java语言的输入输出功能是十分强大而灵活的。</p>
+<p>在Java类库中，IO部分的内容是很庞大的，因为它涉及的领域很广泛：标准输入输出，文件的操作，网络上的数据流，字符串流，对象流，zip文件流等等。</p>
+<p>这里介绍几种读写文件的方式。</p>
+<h1 id="IO-Stream-字节流"><a href="#IO-Stream-字节流" class="headerlink" title="IO Stream(字节流)"></a>IO Stream(字节流)</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//读取文件(字节流)</span></span><br><span class="line"><span class="type">FileInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;d:\\1.txt&quot;</span>);</span><br><span class="line"><span class="comment">//写入相应的文件</span></span><br><span class="line"><span class="type">FileOutputStream</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;d:\\2.txt&quot;</span>);</span><br><span class="line"><span class="comment">//读取数据</span></span><br><span class="line"><span class="comment">//一次性取多少字节</span></span><br><span class="line"><span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">2048</span>];</span><br><span class="line"><span class="comment">//接受读取的内容(n就代表的相关数据，只不过是数字的形式)</span></span><br><span class="line"><span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line"><span class="comment">//循环取出数据</span></span><br><span class="line"><span class="keyword">while</span> ((n = in.read(bytes, <span class="number">0</span>, bytes.length)) != -<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="comment">//转换成字符串</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(bytes, <span class="number">0</span>, n, StandardCharsets.UTF_8);</span><br><span class="line">    System.out.println(str);</span><br><span class="line">    <span class="comment">//写入相关文件</span></span><br><span class="line">    out.write(bytes, <span class="number">0</span>, n);</span><br><span class="line">    <span class="comment">//清除缓存向文件写入数据</span></span><br><span class="line">    out.flush();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//关闭流</span></span><br><span class="line">in.close();</span><br><span class="line">out.close();</span><br></pre></td></tr></table></figure>
+
+<h1 id="Buffered-IO-Stream-缓存字节流"><a href="#Buffered-IO-Stream-缓存字节流" class="headerlink" title="Buffered IO Stream(缓存字节流)"></a>Buffered IO Stream(缓存字节流)</h1><p>使用方式和字节流差不多，但是效率更高(推荐使用)。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//读取文件(缓存字节流)</span></span><br><span class="line"><span class="type">BufferedInputStream</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedInputStream</span>(Files.newInputStream(Paths.get(<span class="string">&quot;d:\\1.txt&quot;</span>)));</span><br><span class="line"><span class="comment">//写入相应的文件</span></span><br><span class="line"><span class="type">BufferedOutputStream</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedOutputStream</span>(Files.newOutputStream(Paths.get(<span class="string">&quot;d:\\2.txt&quot;</span>)));</span><br><span class="line"><span class="comment">//读取数据</span></span><br><span class="line"><span class="comment">//一次性取多少字节</span></span><br><span class="line"><span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">2048</span>];</span><br><span class="line"><span class="comment">//接受读取的内容(n就代表的相关数据，只不过是数字的形式)</span></span><br><span class="line"><span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line"><span class="comment">//循环取出数据</span></span><br><span class="line"><span class="keyword">while</span> ((n = in.read(bytes, <span class="number">0</span>, bytes.length)) != -<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="comment">//转换成字符串</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(bytes, <span class="number">0</span>, n, StandardCharsets.UTF_8);</span><br><span class="line">    System.out.println(str);</span><br><span class="line">    <span class="comment">//写入相关文件</span></span><br><span class="line">    out.write(bytes, <span class="number">0</span>, n);</span><br><span class="line">    <span class="comment">//清除缓存，向文件写入数据</span></span><br><span class="line">    out.flush();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//关闭流</span></span><br><span class="line">in.close();</span><br><span class="line">out.close();</span><br></pre></td></tr></table></figure>
+
+<h1 id="IO-Stream-Reader-Writer"><a href="#IO-Stream-Reader-Writer" class="headerlink" title="IO Stream Reader/Writer"></a>IO Stream Reader/Writer</h1><p>这种方式不建议使用，不能直接字节长度读写。使用范围用做字符转换。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//读取文件(字节流)</span></span><br><span class="line"><span class="type">InputStreamReader</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(Files.newInputStream(Paths.get(<span class="string">&quot;d:\\1.txt&quot;</span>)), StandardCharsets.UTF_8);</span><br><span class="line"><span class="comment">//写入相应的文件</span></span><br><span class="line"><span class="type">OutputStreamWriter</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OutputStreamWriter</span>(Files.newOutputStream(Paths.get(<span class="string">&quot;d:\\2.txt&quot;</span>)));</span><br><span class="line"><span class="comment">//读取数据</span></span><br><span class="line"><span class="comment">//循环取出数据</span></span><br><span class="line"><span class="type">char</span>[] chars = <span class="keyword">new</span> <span class="title class_">char</span>[<span class="number">2048</span>];</span><br><span class="line"><span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span> ((len = in.read(chars, <span class="number">0</span>, chars.length)) != -<span class="number">1</span>) &#123;</span><br><span class="line">    System.out.println(len);</span><br><span class="line">    <span class="comment">//写入相关文件</span></span><br><span class="line">    out.write(chars, <span class="number">0</span>, len);</span><br><span class="line">    <span class="comment">//清除缓存</span></span><br><span class="line">    out.flush();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//关闭流</span></span><br><span class="line">in.close();</span><br><span class="line">out.close();</span><br></pre></td></tr></table></figure>
+
+<h1 id="Buffered-Reader-Writer-缓存流"><a href="#Buffered-Reader-Writer-缓存流" class="headerlink" title="Buffered Reader/Writer(缓存流)"></a>Buffered Reader/Writer(缓存流)</h1><p>提供read Line方法读取一行文本。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">FileInputStream</span> <span class="variable">fileInputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(<span class="string">&quot;d:\\1.txt&quot;</span>);</span><br><span class="line"><span class="type">FileOutputStream</span> <span class="variable">fileOutputStream</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">FileOutputStream</span>(<span class="string">&quot;d:\\2.txt&quot;</span>, <span class="literal">true</span>);</span><br><span class="line"><span class="type">InputStreamReader</span> <span class="variable">inputStreamReader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(fileInputStream, StandardCharsets.UTF_8);</span><br><span class="line"><span class="type">OutputStreamWriter</span> <span class="variable">outputStreamWriter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OutputStreamWriter</span>(fileOutputStream, StandardCharsets.UTF_8);</span><br><span class="line"><span class="comment">//读取文件(字符流)</span></span><br><span class="line"><span class="type">BufferedReader</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(inputStreamReader);</span><br><span class="line"><span class="comment">//BufferedReader in = new BufferedReader(new FileReader(&quot;d:\\1.txt&quot;));</span></span><br><span class="line"><span class="comment">//写入相应的文件</span></span><br><span class="line"><span class="type">BufferedWriter</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedWriter</span>(outputStreamWriter);</span><br><span class="line"><span class="comment">//BufferedWriter out = new BufferedWriter(new FileWriter(&quot;d:\\2.txt&quot;));</span></span><br><span class="line"><span class="comment">//循环取出数据</span></span><br><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">while</span> ((str = in.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">    System.out.println(str);</span><br><span class="line">    <span class="comment">//写入相关文件</span></span><br><span class="line">    out.write(str);</span><br><span class="line">    out.newLine();</span><br><span class="line">    <span class="comment">//清除缓存向文件写入数据</span></span><br><span class="line">    out.flush();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//关闭流</span></span><br><span class="line">in.close();</span><br><span class="line">out.close();</span><br></pre></td></tr></table></figure>
+
+<h1 id="Reader、Print-Writer"><a href="#Reader、Print-Writer" class="headerlink" title="Reader、Print Writer"></a>Reader、Print Writer</h1><p>Print Writer 这个很好用，在写数据的同事可以格式化。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//读取文件(字节流)</span></span><br><span class="line"><span class="type">Reader</span> <span class="variable">in</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(Files.newInputStream(Paths.get(<span class="string">&quot;d:\\1.txt&quot;</span>)), StandardCharsets.UTF_8);</span><br><span class="line"><span class="comment">//写入相应的文件</span></span><br><span class="line"><span class="type">PrintWriter</span> <span class="variable">out</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PrintWriter</span>(<span class="keyword">new</span> <span class="title class_">FileWriter</span>(<span class="string">&quot;d:\\2.txt&quot;</span>));</span><br><span class="line"><span class="comment">//读取数据</span></span><br><span class="line"><span class="comment">//循环取出数据</span></span><br><span class="line"><span class="type">byte</span>[] bytes = <span class="keyword">new</span> <span class="title class_">byte</span>[<span class="number">1024</span>];</span><br><span class="line"><span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line"><span class="keyword">while</span> ((len = in.read()) != -<span class="number">1</span>) &#123;</span><br><span class="line">    System.out.println(len);</span><br><span class="line">    <span class="comment">//写入相关文件</span></span><br><span class="line">    out.write(len);</span><br><span class="line">    <span class="comment">//清除缓存</span></span><br><span class="line">    out.flush();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//关闭流</span></span><br><span class="line">in.close();</span><br><span class="line">out.close();</span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>基本的几种用法就这么多，当然每一个读写的使用都是可以分开的。为了更好的来使用 IO。流里面的读写，建议使用Buffered Input Stream、Buffered Output Stream。</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/IO/">IO</a><a class="post-meta__tags" href="/tags/%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6/">读写文件</a></div><div class="post_share"><div class="social-share" data-image="/images/global/gravatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn1.tianli0.top/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn1.tianli0.top/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/article/17/" title="解决 Tomcat 日志输出乱码"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">解决 Tomcat 日志输出乱码</div></div></a></div><div class="next-post pull-right"><a href="/article/15/" title="Hexo 博客部署到服务器"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hexo 博客部署到服务器</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/global/gravatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">向日葵</div><div class="author-info__description">Java 学习中...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">29</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/shironekoa3"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/shironekoa3" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://twitter.com/shironekoa3" target="_blank" title="Email"><i class="fab fa-twitter" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#IO-Stream-%E5%AD%97%E8%8A%82%E6%B5%81"><span class="toc-number">1.</span> <span class="toc-text">IO Stream(字节流)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Buffered-IO-Stream-%E7%BC%93%E5%AD%98%E5%AD%97%E8%8A%82%E6%B5%81"><span class="toc-number">2.</span> <span class="toc-text">Buffered IO Stream(缓存字节流)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IO-Stream-Reader-Writer"><span class="toc-number">3.</span> <span class="toc-text">IO Stream Reader&#x2F;Writer</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Buffered-Reader-Writer-%E7%BC%93%E5%AD%98%E6%B5%81"><span class="toc-number">4.</span> <span class="toc-text">Buffered Reader&#x2F;Writer(缓存流)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Reader%E3%80%81Print-Writer"><span class="toc-number">5.</span> <span class="toc-text">Reader、Print Writer</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2023 By 向日葵</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn1.tianli0.top/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn1.tianli0.top/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn1.tianli0.top/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script src="https://cdn1.tianli0.top/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div></body></html>

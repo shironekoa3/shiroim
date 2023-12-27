@@ -1,0 +1,351 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Java 多线程 | 向日葵</title><meta name="author" content="向日葵"><meta name="copyright" content="向日葵"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Java 多线程是现在面试离不开的一道坎。本片文章将会记录多线程的基本概念以及常用面试题，欢迎评论补充！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 多线程">
+<meta property="og:url" content="https://javac.me/article/33/index.html">
+<meta property="og:site_name" content="向日葵">
+<meta property="og:description" content="Java 多线程是现在面试离不开的一道坎。本片文章将会记录多线程的基本概念以及常用面试题，欢迎评论补充！">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://javac.me/images/global/gravatar.jpg">
+<meta property="article:published_time" content="2023-03-12T06:14:29.000Z">
+<meta property="article:modified_time" content="2023-03-12T06:14:29.000Z">
+<meta property="article:author" content="向日葵">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="多线程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://javac.me/images/global/gravatar.jpg"><link rel="shortcut icon" href="/images/global/favicon.ico"><link rel="canonical" href="https://javac.me/article/33/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn1.tianli0.top/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn1.tianli0.top/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn1.tianli0.top/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"top-right"},
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn1.tianli0.top/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn1.tianli0.top/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java 多线程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-12 14:14:29'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/extra.css"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/images/global/gravatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">29</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/command/"><i class="fa-fw fas fa-terminal"></i><span> 命令速查</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 文章分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img fixed" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="向日葵"><span class="site-name">向日葵</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/command/"><i class="fa-fw fas fa-terminal"></i><span> 命令速查</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 文章分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">Java 多线程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-12T06:14:29.000Z" title="发表于 2023-03-12 14:14:29">2023-03-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-12T06:14:29.000Z" title="更新于 2023-03-12 14:14:29">2023-03-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span></div></div></div><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Java 多线程是现在面试离不开的一道坎。</p>
+<h1 id="线程创建"><a href="#线程创建" class="headerlink" title="线程创建"></a>线程创建</h1><p>Java 创建线程的 4 中方法：</p>
+<ul>
+<li>继承 Thread 类</li>
+<li>实现 Runnable 接口</li>
+<li>实现 Callable 接口，使用 FutureTask 接收返回结果</li>
+<li>通过线程池开启线程</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 继承 Thread 类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestThread1</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">&quot; 线程执行！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">TestThread1</span>().start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 实现 Runnable 接口</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestThread2</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">&quot; 线程执行！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">TestThread2</span> <span class="variable">testThread2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TestThread2</span>();</span><br><span class="line">        <span class="type">Thread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Thread</span>(testThread2);</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestThread3</span> <span class="keyword">implements</span> <span class="title class_">Callable</span>&lt;Integer&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Integer <span class="title function_">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        System.out.println(Thread.currentThread().getName() + <span class="string">&quot; 线程执行！&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException, ExecutionException &#123;</span><br><span class="line">        <span class="comment">// 创建 Callable 实现类</span></span><br><span class="line">        Callable&lt;Integer&gt; callable = <span class="keyword">new</span> <span class="title class_">TestThread3</span>();</span><br><span class="line">        FutureTask&lt;Integer&gt; futureTask = <span class="keyword">new</span> <span class="title class_">FutureTask</span>&lt;&gt;(callable);</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Thread</span>(futureTask, <span class="string">&quot;Test&quot;</span>).start();</span><br><span class="line">        <span class="keyword">while</span> (!futureTask.isDone()) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;Wait...&quot;</span>);</span><br><span class="line">            Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(futureTask.get());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="线程状态"><a href="#线程状态" class="headerlink" title="线程状态"></a>线程状态</h1><p>线程有 5 个状态：</p>
+<ul>
+<li>NEW: 线程创建完毕，尚未启动的线程处于此状态。</li>
+<li>RUNNABLE: 在 Java 虚拟机中执行的线程处于此状态。</li>
+<li>BLOCKED: 被阻止等待监视器锁定的线程处于此状态。</li>
+<li>WAITING: 无限期等待另一个线程执行特定操作的线程处于此状态。</li>
+<li>TIMED_WAITING: 等待另一个线程执行操作达指定等待时间的线程处于此状态。</li>
+<li>TERMINATED: 已退出的线程处于此状态。</li>
+</ul>
+<h1 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h1><p>setPriority(int newPriority):</p>
+<p>更改线程的优先级。</p>
+<p>static void sleep(long millis):</p>
+<p>让正在执行的线程休眠。</p>
+<p>void join():</p>
+<p>等待该线程终止。</p>
+<p>static void yield():</p>
+<p>暂停当前的线程，执行其他线程。可能会失败。</p>
+<p>void interrupt():</p>
+<p>中断线程。</p>
+<p>boolean isAlive():</p>
+<p>判断线程是否处于活跃状态。</p>
+<h1 id="线程的优先级"><a href="#线程的优先级" class="headerlink" title="线程的优先级"></a>线程的优先级</h1><p>Java 提供一个线程调度器来监控程序中启动后进入就绪状态的所有线程。</p>
+<p>线程的优先级用数字表示，范围从 1 ~ 10。</p>
+<p>public final static int MIN_PRIORITY = 1;<br>public final static int NORM_PRIORITY = 5;<br>public final static int MAX_PRIORITY = 10;</p>
+<h1 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h1><p>线程分为用户线程和守护线程。</p>
+<p>虚拟机必须确保用户线程执行完毕。</p>
+<p>虚拟机不用等待守护线程执行完毕。</p>
+<p>public final void setDaemon(boolean on);</p>
+<h1 id="☆线程同步"><a href="#☆线程同步" class="headerlink" title="☆线程同步"></a>☆线程同步</h1><h1 id="线程面试题"><a href="#线程面试题" class="headerlink" title="线程面试题"></a>线程面试题</h1><h2 id="开启线程的方式，以及如何保证线程安全？"><a href="#开启线程的方式，以及如何保证线程安全？" class="headerlink" title="开启线程的方式，以及如何保证线程安全？"></a>开启线程的方式，以及如何保证线程安全？</h2><p>开启线程有 4 种方式：</p>
+<ul>
+<li>继承 Thread 类</li>
+<li>实现 Runnable 接口</li>
+<li>实现 Callable 接口，使用 FutureTask 接收返回结果</li>
+<li>通过线程池开启线程</li>
+</ul>
+<p>如何保证线程安全？</p>
+<p>加锁：JVM 提供的 synchronized 关键字，以及 JDK 提供的各种锁 Lock。</p>
+<h2 id="线程的生命周期和状态"><a href="#线程的生命周期和状态" class="headerlink" title="线程的生命周期和状态"></a>线程的生命周期和状态</h2><p>线程通常有 5 种状态：创建、就绪、运行、阻塞和死亡。</p>
+<p>阻塞情况分为 3 种：</p>
+<ul>
+<li>等待阻塞：运行的线程执行了 wait 方法，该线程会释放占用的所有资源，JVM 会把该线程放入等待池中。进入这个状态后，是不能自动唤醒的，必须依靠其他线程调用 notify 或者 notifyAll 方法才能被唤醒，wait 是 Object 类中的方法。</li>
+<li>同步阻塞：运行的线程在获取对象的同步锁时，若该同步锁被别的线程占用，则 JVM 会把该线程放入锁池中。</li>
+<li>其他阻塞：运行的线程执行 sleep 或 join 方法，或者发出 I/O 请求时，JVM 会把该线程置为阻塞状态。当 sleep 状态超时、join等待线程终止或超时、或 I/O 处理完毕时，线程重新转入就绪状态。sleep 是 Thread 类的方法。</li>
+</ul>
+<ol>
+<li>新建状态(NEW)：新创建了一个线程对象。</li>
+<li>就绪状态(Runnable)：线程对象创建后，其他线程调用了该对象的 start 方法。该状态的线程位于可运行线程池中，变得可运行，等待获取 CPU 的使用权。</li>
+<li>运行状态(Running)：就绪状态的线程获取了 CPU，执行程序代码。</li>
+<li>阻塞状态(BLOCKED)：阻塞状态就是线程因为某种原因放弃 CPU 使用权，暂停运行。直到线程进入就绪状态才有机会转到运行状态。</li>
+<li>死亡状态(DEAD)：线程执行完了或因异常退出了 run 方法，该线程结束生命周期。</li>
+</ol>
+<h2 id="sleep-wait-join-yield"><a href="#sleep-wait-join-yield" class="headerlink" title="sleep, wait, join, yield"></a>sleep, wait, join, yield</h2><p>锁池：</p>
+<p>所有需要竞争同步锁的线程都会放在锁池当中，比如当前对象的锁已经被其中一个线程得到，则其他线程需要在这个锁池进行等待，当前面的线程释放同步锁后锁池中的线程去竞争同步锁，当某个线程得到后会进入就绪队列进行等待 CPU 资源分配。</p>
+<p>等待池：</p>
+<p>当我们调用 wait 方法后，线程会放到等待池当中，等待池的线程是不会去竞争同步锁的。只有调用了 notify 或 notifyAll 方法后等待池的线程才会开始去竞争锁，notify 是随机从等待池选出一个线程放到锁池，而 notifyAll 是将等待池的所有线程放到锁池当中。</p>
+<p>sleep 与 wait 的区别：</p>
+<ol>
+<li>sleep 是 Thread 类中的静态本地方法，wait 则是 Object 类的本地方法。</li>
+<li>sleep 方法不会释放锁，而 wait 会释放，而且会加入到等待队列中。</li>
+<li>sleep 方法不依赖于同步器 synchronized，但是 wait 需要依赖 synchronized 关键字。</li>
+<li>sleep 不需要被唤醒（休眠之后退出阻塞），但是 wait 需要（不指定时间需要被被的线程唤醒）。</li>
+<li>sleep 一般用于当前线程休眠，或者轮询暂停操作，wait 则多用于线程之间的通信。</li>
+<li>sleep 会让出 CPU 执行时间且强制切换上下文，而 wait 不一定，wait 后可能重新竞争到锁继续执行。</li>
+</ol>
+<p>yield 与 join 的区别：</p>
+<p>yield 执行后线程直接进入就绪状态，马上释放了 CPU 的执行权，但是依然保留了 CPU 的执行资格，所以有可能 CPU 下次进行线程调度还会让这个线程获取到执行权继续执行。</p>
+<p>join 执行后当前线程进入阻塞状态。例如在线程 B 中调用了线程 A 的 join 方法，那么线程 B 会进入阻塞队列，直到线程 A 执行完毕或中断。</p>
+<h2 id="守护线程-1"><a href="#守护线程-1" class="headerlink" title="守护线程"></a>守护线程</h2><p>举例：GC 垃圾回收线程就是一个守护线程。当我们的程序中不再有任何运行的线程时，程序就不会再产生垃圾，垃圾回收器也就无事可做，这时垃圾回收线程就会自动离开。它始终在低级别的状态中运行，用于实时监控和管理系统中的可回收资源。</p>
+<p>thread.setDaemon(true) 必须在 thread.start() 之前设置，否则会报错。</p>
+<p>在守护线程中产生的新线程也是守护线程。</p>
+<p>Java 自带的多线程框架，如 ExecutorService，会将守护线程转换为用户线程，所以如果要使用后台线程就不能使用 Java 的线程池。</p>
+<h2 id="Volatile-和-Synchronized-有什么区别？"><a href="#Volatile-和-Synchronized-有什么区别？" class="headerlink" title="Volatile 和 Synchronized 有什么区别？"></a>Volatile 和 Synchronized 有什么区别？</h2><p>Synchronized 关键字用来加锁，Volatile 关键字只是保持变量的线程可见性，通常适用于一个线程写，多个线程读的场景。</p>
+<h2 id="Volatile-能不能保证线程安全？"><a href="#Volatile-能不能保证线程安全？" class="headerlink" title="Volatile 能不能保证线程安全？"></a>Volatile 能不能保证线程安全？</h2><p>不能。Volatile 关键字只能保证线程可见性，不能保证原子性。</p>
+<p>Volatile 可以防止指令重排。在 DCL(Double Check Lock) 中，防止高并发情况下，指令重排产生的线程安全问题。</p>
+<h2 id="并发三大特性"><a href="#并发三大特性" class="headerlink" title="并发三大特性"></a>并发三大特性</h2><p>并发三大特性：原子性、可见性、有序性。</p>
+<p>原子性：</p>
+<p>原子性是指在一个操作中，CPU 不可以中途暂停调度，即不被中断操作，要么全部执行完毕，要么都不执行。</p>
+<p>关键字：synchronized</p>
+<p>可见性：</p>
+<p>当多个线程访问同一个变量时，一个线程修改了这个变量的值，其他线程能够立即看得到修改的值。</p>
+<p>关键字：volatile, synchronized, final</p>
+<p>有序性：</p>
+<p>虚拟机在进行代码编译时，对于那些改变顺序之后不会对最终结果造成影响的代码，虚拟机不一定会按照我们写的代码的顺序来执行，有可能将他们重新排序。实际上，对于有些代码进行重新排序后，虽然对变量的值没有造成影响，但有可能会出现线程安全问题。</p>
+<p>关键字：volatile, synchronized</p>
+<h2 id="为什么使用线程池？线程池参数有哪些？"><a href="#为什么使用线程池？线程池参数有哪些？" class="headerlink" title="为什么使用线程池？线程池参数有哪些？"></a>为什么使用线程池？线程池参数有哪些？</h2><p>使用线程池的优点：</p>
+<ol>
+<li>可以降低创建和销毁线程的消耗。</li>
+<li>方便管理，使用线程池可以统一分配调优监控。</li>
+</ol>
+<p>线程池中的参数：</p>
+<ul>
+<li>corePoolSize: 核心线程数，这些线程创建后不会被消除，是一种常驻线程。</li>
+<li>maxinumPoolSize: 最大线程数。</li>
+<li>keepAliveTime, unit: 表示超出核心线程数之外的线程的空闲存活时间，非核心线程空闲一定时间会被消除。可以通过 setKeepAliveTime 来设置空闲时间。</li>
+<li>workQueue: 用来存放待执行的任务。如果核心线程都已被使用，还有任务进来则全部放入队列。直到整个队列被放满但任务还在持续进入，则会开始创建新的线程。</li>
+<li>ThreadFactory: 线程工厂。用来生产线程执行任务。我们可以选择使用默认创建的工厂，产生的线程都在同一个组内，拥有相同的优先级，且都不是守护线程。当然我们也可以选择自定义线程工厂，一般我们会根据业务来指定不同的线程工厂。</li>
+<li>Handler: 任务拒绝策略，有两种情况，第一种是当我们调用 shutdown 等方法关闭线程池后，这时候即使线程池内部还有没执行完的任务正在执行，但是由于线程池已经关闭，我们再想继续向线程池提交任务就会被拒绝。另一种情况就是当达到最大线程数时，再提交的任务就会别拒绝。</li>
+</ul>
+<h2 id="线程池处理流程"><a href="#线程池处理流程" class="headerlink" title="线程池处理流程"></a>线程池处理流程</h2><p>线程池执行任务<br>    |<br>核心线程是否已满？—-未满—-&gt; 创建核心线程执行任务<br>    |<br>    已满<br>    |<br>任务队列是否已满？—-未满—-&gt; 将任务放入到队列<br>    |<br>    已满<br>    |<br>最大线程数是否达到？—-未达到—-&gt; 创建临时线程执行任务<br>    |<br>    已达到<br>    |<br>根据拒绝策略处理任务。</p>
+<h2 id="线程池中阻塞队列的作用？为什么是先添加到队列而不是先创建临时线程？"><a href="#线程池中阻塞队列的作用？为什么是先添加到队列而不是先创建临时线程？" class="headerlink" title="线程池中阻塞队列的作用？为什么是先添加到队列而不是先创建临时线程？"></a>线程池中阻塞队列的作用？为什么是先添加到队列而不是先创建临时线程？</h2><p>线程池中阻塞队列的作用：</p>
+<p>使用阻塞队列可以保证任务队列中没有任务时阻塞获取任务的线程，使得线程进入 wait 状态，释放 CPU 资源。</p>
+<p>阻塞队列自带阻塞和唤醒的功能，不需要额外处理，无任务执行时，线程池利用阻塞队列的 take 方法挂起，从而维持核心线程的存活，不至于一直占用 CPU 资源。</p>
+<p>为什么是先添加任务到队列而不是先创建临时线程：</p>
+<p>因为创建新线程的时候，要获取全局锁，这个时候会阻塞其他线程，影响整体效率。</p>
+<h2 id="线程池中线程复用原理"><a href="#线程池中线程复用原理" class="headerlink" title="线程池中线程复用原理"></a>线程池中线程复用原理</h2><p>线程池将线程和任务进行解耦，线程是线程，任务是任务。</p>
+<p>在线程池中，同一个线程可以从阻塞队列中不断获取新任务来执行，其核心原理在于线程对 Thread 进行了封装，并不是每次执行任务都会调用 Thread.start 来创建新线程，而是让每个线程去执行一个循环任务，在这个循环任务中不停检查是否有任务需要被执行，如果有则直接执行，也就是调用任务中的 run 方法，将 run 方法当成一个普通的方法执行，通过这种方式只使用固定的线程就将所有任务的 run 方法串联起来。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://javac.me">向日葵</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://javac.me/article/33/">https://javac.me/article/33/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://javac.me" target="_blank">向日葵</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a><a class="post-meta__tags" href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">多线程</a></div><div class="post_share"><div class="social-share" data-image="/images/global/gravatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn1.tianli0.top/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn1.tianli0.top/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/article/34/" title="SpringSecurity笔记"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">SpringSecurity笔记</div></div></a></div><div class="next-post pull-right"><a href="/article/32/" title="Thymeleaf 笔记"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Thymeleaf 笔记</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/images/global/gravatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">向日葵</div><div class="author-info__description">Java 学习中...</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">29</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/shironekoa3"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/shironekoa3" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://twitter.com/shironekoa3" target="_blank" title="Email"><i class="fab fa-twitter" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E5%88%9B%E5%BB%BA"><span class="toc-number">2.</span> <span class="toc-text">线程创建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81"><span class="toc-number">3.</span> <span class="toc-text">线程状态</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">常用方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">5.</span> <span class="toc-text">线程的优先级</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%88%E6%8A%A4%E7%BA%BF%E7%A8%8B"><span class="toc-number">6.</span> <span class="toc-text">守护线程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E2%98%86%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="toc-number">7.</span> <span class="toc-text">☆线程同步</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E9%9D%A2%E8%AF%95%E9%A2%98"><span class="toc-number">8.</span> <span class="toc-text">线程面试题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%8C%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%EF%BC%9F"><span class="toc-number">8.1.</span> <span class="toc-text">开启线程的方式，以及如何保证线程安全？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%92%8C%E7%8A%B6%E6%80%81"><span class="toc-number">8.2.</span> <span class="toc-text">线程的生命周期和状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sleep-wait-join-yield"><span class="toc-number">8.3.</span> <span class="toc-text">sleep, wait, join, yield</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%88%E6%8A%A4%E7%BA%BF%E7%A8%8B-1"><span class="toc-number">8.4.</span> <span class="toc-text">守护线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Volatile-%E5%92%8C-Synchronized-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">8.5.</span> <span class="toc-text">Volatile 和 Synchronized 有什么区别？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Volatile-%E8%83%BD%E4%B8%8D%E8%83%BD%E4%BF%9D%E8%AF%81%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%EF%BC%9F"><span class="toc-number">8.6.</span> <span class="toc-text">Volatile 能不能保证线程安全？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7"><span class="toc-number">8.7.</span> <span class="toc-text">并发三大特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%9F%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8F%82%E6%95%B0%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="toc-number">8.8.</span> <span class="toc-text">为什么使用线程池？线程池参数有哪些？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><span class="toc-number">8.9.</span> <span class="toc-text">线程池处理流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%B8%AD%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E5%85%88%E6%B7%BB%E5%8A%A0%E5%88%B0%E9%98%9F%E5%88%97%E8%80%8C%E4%B8%8D%E6%98%AF%E5%85%88%E5%88%9B%E5%BB%BA%E4%B8%B4%E6%97%B6%E7%BA%BF%E7%A8%8B%EF%BC%9F"><span class="toc-number">8.10.</span> <span class="toc-text">线程池中阻塞队列的作用？为什么是先添加到队列而不是先创建临时线程？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%B8%AD%E7%BA%BF%E7%A8%8B%E5%A4%8D%E7%94%A8%E5%8E%9F%E7%90%86"><span class="toc-number">8.11.</span> <span class="toc-text">线程池中线程复用原理</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2023 By 向日葵</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn1.tianli0.top/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn1.tianli0.top/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"></div><script defer="defer" id="ribbon" src="https://cdn1.tianli0.top/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script src="https://cdn1.tianli0.top/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script></div></body></html>
